@@ -30,7 +30,9 @@ client.once('ready', async () => {
         console.log(`Loaded piece: ${name}`);
     }
 
-    client.user.setActivity(`messages`, { type: ActivityType.Listening });
+    const numServers = (await client.mongo.collection(DB.COLLECTION).find().toArray()).length;
+
+    client.user.setActivity(`${numServers} server(s)`, { type: ActivityType.Watching });
 
     console.log(`Ready!`);
 });

@@ -1,9 +1,9 @@
-import { ApplicationCommandOptionData, CommandInteraction, InteractionResponse } from "discord.js";
+import { ApplicationCommandOptionData, ChatInputCommandInteraction, InteractionResponse } from "discord.js";
 
 export abstract class Command {
     name: string;
     description: string;
     options?: ApplicationCommandOptionData[];
 
-    abstract run?(interaction: CommandInteraction): Promise<InteractionResponse<boolean> | void>;
+    abstract run?(interaction: ChatInputCommandInteraction): Promise<InteractionResponse<boolean> | void>;
 }

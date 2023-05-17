@@ -1,6 +1,8 @@
 import { ApplicationCommand, CommandInteraction, Client, Collection, Guild } from "discord.js";
 import { Command } from "../interfaces/command";
+import { Guild as GuildData } from "../typings/Guild";
 import { readdirRecursive } from "../utils/utils";
+import { DB } from "../config";
 
 async function register(client: Client) {
     try {
@@ -10,7 +12,14 @@ async function register(client: Client) {
     }
 
     client.on('interactionCreate', async interaction => {
-        if (interaction.isChatInputCommand()) runCommand(interaction as CommandInteraction, client);
+        if (interaction.isChatInputCommand()) {
+            const serverData: GuildData = await interaction.client.mongo.collection<GuildData>(DB.COLLECTION).findOne({ guildId: interaction.guildId });
+            if (!serverData && interaction.commandName !== 'init') {
+                interaction.reply({ content: `This server isn't set up yet! Run /init to do so.`, ephemeral: true });
+                return;
+            }
+            runCommand(interaction as CommandInteraction, client);
+        } 
     });
 }
 
@@ -54,9 +63,8 @@ async function loadCommands(client: Client) {
         }
         
         client.commands.set(name, command);
-
-        console.log(`\t${awaitedCommands.length} command(s) have been loaded`)
     }
+    console.log(`\t${awaitedCommands.length} command(s) have been loaded`)
 }
 
 async function runCommand(interaction: CommandInteraction, client: Client) {

@@ -1,6 +1,7 @@
 import DiscordJS, { ActivityType, Client, IntentsBitField } from 'discord.js';
-import { BOT } from './config';
+import { BOT, DB } from './config';
 import { readdirRecursive } from './utils/utils';
+import { MongoClient } from 'mongodb';
 
 const client = new DiscordJS.Client({
     intents: [
@@ -10,11 +11,16 @@ const client = new DiscordJS.Client({
     ]
 });
 
-// TODO: database connection
-
 client.login(BOT.TOKEN);
 
 client.once('ready', async () => {
+    // database connection
+    await MongoClient.connect(DB.CONNECTION).then((bot) => {
+        client.mongo = bot.db(BOT.NAME);
+    }).then(() => {
+        console.log(`Connected to database`);
+    });
+
     // load pieces (messageListener, commandManager)
     const pieceFiles = readdirRecursive(`${__dirname}/pieces`);
     for (const file of pieceFiles) {

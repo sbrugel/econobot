@@ -1,4 +1,4 @@
-import { ApplicationCommand, Client, Collection, Guild } from "discord.js";
+import { ApplicationCommand, CommandInteraction, Client, Collection, Guild } from "discord.js";
 import { Command } from "../interfaces/command";
 import { readdirRecursive } from "../utils/utils";
 
@@ -8,6 +8,10 @@ async function register(client: Client) {
     } catch (error) {
         console.log(error);
     }
+
+    client.on('interactionCreate', async interaction => {
+        if (interaction.isChatInputCommand()) runCommand(interaction as CommandInteraction, client);
+    });
 }
 
 async function loadCommands(client: Client) {
@@ -52,6 +56,25 @@ async function loadCommands(client: Client) {
         client.commands.set(name, command);
 
         console.log(`\t${awaitedCommands.length} command(s) have been loaded`)
+    }
+}
+
+async function runCommand(interaction: CommandInteraction, client: Client) {
+    const command = client.commands.get(interaction.commandName);
+
+    if (command.run !== undefined) {
+        // TODO: implement perms
+
+        try {
+            command.run(interaction)
+                ?.catch(async (error: Error) => {
+                    interaction.reply({ content: `Sorry, an error occurred: ${error}`, ephemeral: true });
+                })
+        } catch (error) {
+            console.log(`Error occurred while running command: ${error}`);
+        }
+    } else {
+        interaction.reply({ content: `This command has not yet been implemented.`, ephemeral: true });
     }
 }
 

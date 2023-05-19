@@ -1,4 +1,4 @@
-import DiscordJS, { ActivityType, Client, IntentsBitField } from 'discord.js';
+import DiscordJS, { ActivityType, IntentsBitField } from 'discord.js';
 import { BOT, DB } from './config';
 import { readdirRecursive } from './utils/utils';
 import { MongoClient } from 'mongodb';

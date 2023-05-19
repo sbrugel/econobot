@@ -1,6 +1,6 @@
 import { ApplicationCommand, CommandInteraction, Client, Collection, Guild } from "discord.js";
-import { Command } from "../interfaces/command";
-import { Guild as GuildData } from "../typings/Guild";
+import { Command } from "../typings/bot/command";
+import { Guild as GuildData } from "../typings/db/Guild";
 import { readdirRecursive } from "../utils/utils";
 import { DB } from "../config";
 

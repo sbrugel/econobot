@@ -1,7 +1,7 @@
-import { Command } from "../../interfaces/command";
+import { Command } from "../../typings/bot/command";
 import { ApplicationCommandOptionType, ChatInputCommandInteraction, InteractionResponse } from 'discord.js';
 import { DB } from '../../config';
-import { Guild } from "../../typings/Guild";
+import { Guild } from "../../typings/db/Guild";
 import { ApplicationCommandOptionData } from 'discord.js';
 
 export default class extends Command {

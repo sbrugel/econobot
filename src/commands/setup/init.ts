@@ -17,7 +17,14 @@ export default class extends Command {
                 currencyIcon: 'https://tenor.com/view/bennet-coin-bennet-coin-bennet-coin-pink-gif-22882734',
                 publicAwardAnnounce: true,
                 users: [],
-                items: []
+                serverStore: {
+                    items: []
+                },
+                stats: {
+                    coinsGivenOut: 0,
+                    coinsSpent: 0,
+                    uniqueUsers: 0
+                }
             }
 
             await interaction.client.mongo.collection(DB.COLLECTION).insertOne(newServerData)

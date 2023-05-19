@@ -1,4 +1,6 @@
 import { Item } from "./Item";
+import { Stats } from "./Stats";
+import { Store } from "./Store";
 import { User } from "./User";
 
 export interface Guild {
@@ -7,5 +9,6 @@ export interface Guild {
     currencyIcon: string, // URL
     publicAwardAnnounce: boolean, // true = send coin award messages in chat; false = in DM
     users: User[],
-    items: Item[]
+    serverStore: Store,
+    stats: Stats
 }

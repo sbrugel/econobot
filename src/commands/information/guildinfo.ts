@@ -17,6 +17,9 @@ export default class extends Command {
             .addFields(
                 { name: 'Name', value: serverData.currencyName },
                 { name: 'Awards posted publicly?', value: serverData.publicAwardAnnounce ? 'Yes' : 'No' },
+                { name: `# of ${serverData.currencyName}s Given Out`, value: serverData.stats.coinsGivenOut.toString() },
+                { name: `# of ${serverData.currencyName}s Spent`, value: serverData.stats.coinsSpent.toString() },
+                { name: `# of Unique Users`, value: serverData.stats.uniqueUsers.toString() },
             )
 
         return interaction.reply({ embeds: [displayEmbed], ephemeral: true });

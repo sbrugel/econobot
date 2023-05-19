@@ -77,6 +77,7 @@ async function runCommand(interaction: CommandInteraction, client: Client) {
             command.run(interaction)
                 ?.catch(async (error: Error) => {
                     interaction.reply({ content: `Sorry, an error occurred: ${error}`, ephemeral: true });
+                    console.log(error);
                 })
         } catch (error) {
             console.log(`Error occurred while running command: ${error}`);

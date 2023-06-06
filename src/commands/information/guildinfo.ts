@@ -11,7 +11,7 @@ export default class extends Command {
         const serverData: Guild = await interaction.client.mongo.collection<Guild>(DB.COLLECTION).findOne({ guildId: interaction.guildId });
 
         const displayEmbed = new EmbedBuilder()
-            .setColor(0x0000FF)
+            .setColor('Blue')
             .setTitle(`Currency Info for ${interaction.guild.name}`)
             .setThumbnail(serverData.currencyIcon)
             .addFields(

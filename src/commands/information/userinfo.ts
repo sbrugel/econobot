@@ -27,7 +27,7 @@ export default class extends Command {
         console.log(targetUser.avatarURL());
 
         const displayEmbed = new EmbedBuilder()
-            .setColor(0x0000FF)
+            .setColor('Blue')
             .setTitle(`Stats for ${targetUser.tag}`)
             .setThumbnail(targetUser.avatarURL())
             .addFields(
